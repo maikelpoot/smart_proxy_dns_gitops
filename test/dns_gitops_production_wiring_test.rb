@@ -1,11 +1,11 @@
 require 'test_helper'
-require 'smart_proxy_dns_plugin_template/dns_plugin_template_configuration'
-require 'smart_proxy_dns_plugin_template/dns_plugin_template_main'
+require 'smart_proxy_dns_gitops/dns_gitops_configuration'
+require 'smart_proxy_dns_gitops/dns_gitops_main'
 
-class DnsPluginTemplateProductionWiringTest < Test::Unit::TestCase
+class DnsGitopsProductionWiringTest < Test::Unit::TestCase
   def setup
     @container = ::Proxy::DependencyInjection::Container.new
-    @config = ::Proxy::Dns::PluginTemplate::PluginConfiguration.new
+    @config = ::Proxy::Dns::Gitops::PluginConfiguration.new
   end
 
   def test_dns_provider_initialization

@@ -1,6 +1,6 @@
 require 'test_helper'
 require 'dns_common/dns_common'
-require 'smart_proxy_dns_plugin_template/dns_plugin_template_main'
+require 'smart_proxy_dns_gitops/dns_gitops_main'
 require "rack/test"
 
 module Proxy::Dns
@@ -24,7 +24,7 @@ class InternalApiTest < Test::Unit::TestCase
   end
 
   def setup
-    @server = Proxy::Dns::PluginTemplate::Record.new("required_setting", "example_setting",
+    @server = Proxy::Dns::Gitops::Record.new("required_setting", "example_setting",
                                                      "required_path", "optional_path", 3600)
   end
 

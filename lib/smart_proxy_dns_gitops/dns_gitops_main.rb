@@ -1,6 +1,6 @@
 require 'dns_common/dns_common'
 
-module Proxy::Dns::PluginTemplate
+module Proxy::Dns::Gitops
   class Record < ::Proxy::Dns::Record
     include Proxy::Log
 
