@@ -9,7 +9,7 @@ module Proxy::Dns::Gitops
 
     attr_reader :git_bin_path, :git_ssh_path, :git_lockfile
 
-    def initialize(zones, dns_ttl, git_path, git_bin_path, git_ssh_path, git_lockfile, git_push, git_remote)
+    def initialize(zones, dns_ttl, git_path, git_zones_path, git_bin_path, git_ssh_path, git_lockfile, git_push, git_remote)
       @zones = zones.sort_by { |zone| zone.length } # never nil
       @git_path = git_path # file exists and is readable
 
@@ -18,6 +18,9 @@ module Proxy::Dns::Gitops
       @git_push = false
       @git_push = true if git_push
       @git_remote = git_remote
+
+      @git_zones_path = @git_path
+      @git_zones_path += git_zones_path if git_zones_path != '/'
 
       logger.debug("Lockfile set to: #{@git_lockfile}")
 
@@ -48,8 +51,8 @@ module Proxy::Dns::Gitops
 
     def load_file(zone)
       records = {}
-      raise "Failed to load: #{@git_path}/#{zone}.yaml. File does not exists or is not readable" unless File.readable?("#{@git_path}/#{zone}.yaml")
-      records = YAML.load(File.read("#{@git_path}/#{zone}.yaml")) if File.readable?("#{@git_path}/#{zone}.yaml")
+      raise "Failed to load: #{@git_zones_path}/#{zone}.yaml. File does not exists or is not readable" unless File.readable?("#{@git_zones_path}/#{zone}.yaml")
+      records = YAML.load(File.read("#{@git_zones_path}/#{zone}.yaml")) if File.readable?("#{@git_zones_path}/#{zone}.yaml")
       records = {} unless records
 
       records #return
@@ -57,8 +60,8 @@ module Proxy::Dns::Gitops
 
     def write_file(zone, records)
 
-      logger.info("trying to save: #{@git_path}/#{zone}.yaml")
-      File.open("#{@git_path}/#{zone}.yaml", "w") { |file| file.write(records.to_yaml) }
+      logger.info("trying to save: #{@git_zones_path}/#{zone}.yaml")
+      File.open("#{@git_zones_path}/#{zone}.yaml", "w") { |file| file.write(records.to_yaml) }
 
     end
 
@@ -67,7 +70,7 @@ module Proxy::Dns::Gitops
       original_stderr = $stderr  # capture previous value of $stdout
       $stdout = StringIO.new     # assign a string buffer to $stdout
 
-      @git.add("#{@git_path}/#{zone}.yaml")
+      @git.add("#{@git_zones_path}/#{zone}.yaml")
       @git.commit("Foreman: #{message}")
       logger.info("Files Committed")
       @git.push(@git.remote(@git_remote)) if @git_push

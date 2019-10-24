@@ -8,7 +8,7 @@ module Proxy::Dns::Gitops
     # Settings listed under default_settings are required.
     # An exception will be raised if they are initialized with nil values.
     # Settings not listed under default_settings are considered optional and by default have nil value.
-    default_settings :zones => [], :git_path => '/tmp', :git_bin_path => '/bin/git', :git_push => false, :git_remote => 'origin'
+    default_settings :zones => [], :git_path => '/tmp', :git_zones_path => '/', :git_bin_path => '/bin/git', :git_push => false, :git_remote => 'origin'
 
     requires :dns, '>= 1.15'
 

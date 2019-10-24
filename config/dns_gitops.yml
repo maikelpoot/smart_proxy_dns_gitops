@@ -6,6 +6,7 @@
 :dns_ttl: 3600 # ttl for records, defaults to: 86400 [optional]
 
 :git_path: /path/to/git/repo # Path to git repo
+:git_zones_path: /  # path relative to :git_path
 :git_bin_path: /bin/git # Path to git binary. defaults to: /bin/git
 :git_ssh_path: /path/to/ssh/script  # Path to git ssh script, optional
 :git_lockfile: /path/to/lockfile    # defaults to [git_path]/.lockfile

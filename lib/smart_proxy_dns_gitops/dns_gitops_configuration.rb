@@ -11,6 +11,7 @@ module ::Proxy::Dns::Gitops
             settings[:zones],
             settings[:dns_ttl],
             settings[:git_path],
+            settings[:git_zones_path],
             settings[:git_bin_path],
             settings[:git_ssh_path],
             settings[:git_lockfile],
