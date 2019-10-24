@@ -2,9 +2,12 @@
 #
 # Configuration file for 'dns_gitops' dns provider
 #
+:zones: ['example.com', '0.0.10.in-addr.arpa'] # Zones handled by this proxy
+:dns_ttl: 3600 # ttl for records, defaults to: 86400 [optional]
 
-# override :required_setting here, by default it is set to 'default_value'
-# :required_setting: non-default-value
-# :example_setting is an optional setting. Comment out the next line to leave it unset
-:example_setting: example
-:optional_path: /optional/path
+:git_path: /path/to/git/repo # Path to git repo
+:git_bin_path: /bin/git # Path to git binary. defaults to: /bin/git
+:git_ssh_path: /path/to/ssh/script  # Path to git ssh script, optional
+:git_lockfile: /path/to/lockfile    # defaults to [git_path]/.lockfile
+:git_push: true # pull/push from remote, defaults to false
+:git_remote: origin # remote name, defaults to 'origin' [optional]
